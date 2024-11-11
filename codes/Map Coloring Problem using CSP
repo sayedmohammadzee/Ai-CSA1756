@@ -1,0 +1,47 @@
+from collections import deque
+
+# Define the colors and constraints
+colors = ['Red', 'Green', 'Blue']
+
+# Define the graph (map) with adjacent countries
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+# Check if the coloring assignment is valid
+def is_valid_coloring(assignment, node, color):
+    for neighbor in graph[node]:
+        if neighbor in assignment and assignment[neighbor] == color:
+            return False
+    return True
+
+# Solve the map coloring problem using backtracking
+def map_coloring():
+    assignment = {}
+    nodes = list(graph.keys())
+    
+    def backtrack(node_index):
+        if node_index == len(nodes):
+            return assignment
+        
+        node = nodes[node_index]
+        for color in colors:
+            if is_valid_coloring(assignment, node, color):
+                assignment[node] = color
+                result = backtrack(node_index + 1)
+                if result:
+                    return result
+                del assignment[node]
+        return None
+    
+    return backtrack(0)
+
+# Example usage:
+solution = map_coloring()
+if solution:
+    print("Coloring solution:", solution)
+else:
+    print("No solution found")
