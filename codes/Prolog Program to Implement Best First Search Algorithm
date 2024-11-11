@@ -1,0 +1,9 @@
+% Best First Search example using heuristics
+best_first_search(Start, Goal) :-
+    heuristic(Start, HStart),
+    heuristic(Goal, HGoal),
+    HStart =< HGoal,
+    format('Best first search from ~w to ~w~n', [Start, Goal]).
+
+heuristic(start, 1).
+heuristic(goal, 0).
