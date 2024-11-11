@@ -1,0 +1,33 @@
+import itertools
+
+def calculate_distance(path, distances):
+    total_distance = 0
+    for i in range(len(path) - 1):
+        total_distance += distances[path[i]][path[i + 1]]
+    total_distance += distances[path[-1]][path[0]]  # Return to starting point
+    return total_distance
+
+def traveling_salesman(distances):
+    cities = list(distances.keys())
+    shortest_path = None
+    min_distance = float('inf')
+
+    # Generate all permutations of the cities
+    for perm in itertools.permutations(cities):
+        distance = calculate_distance(perm, distances)
+        if distance < min_distance:
+            min_distance = distance
+            shortest_path = perm
+
+    return shortest_path, min_distance
+
+# Example usage:
+distances = {
+    'A': {'A': 0, 'B': 10, 'C': 15, 'D': 20},
+    'B': {'A': 10, 'B': 0, 'C': 35, 'D': 25},
+    'C': {'A': 15, 'B': 35, 'C': 0, 'D': 30},
+    'D': {'A': 20, 'B': 25, 'C': 30, 'D': 0}
+}
+shortest_path, min_distance = traveling_salesman(distances)
+print("Shortest path:", shortest_path)
+print("Minimum distance:", min_distance)
