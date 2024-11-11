@@ -1,0 +1,8 @@
+parent(john, mary).
+parent(john, peter).
+parent(mary, lisa).
+parent(peter, paul).
+
+% Query to find children of a person
+children(Parent, Child) :-
+    parent(Parent, Child).
