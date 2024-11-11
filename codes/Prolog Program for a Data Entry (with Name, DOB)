@@ -1,0 +1,7 @@
+person(name('John Doe'), dob('1990-01-01')).
+person(name('Jane Doe'), dob('1992-02-02')).
+
+% Query to find person by name
+find_person_by_name(Name) :-
+    person(name(Name), dob(DOB)),
+    format('Name: ~w, Date of Birth: ~w~n', [Name, DOB]).
