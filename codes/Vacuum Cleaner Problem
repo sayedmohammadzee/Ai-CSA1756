@@ -1,0 +1,44 @@
+from collections import deque
+
+# Defining the vacuum cleaner environment
+def vacuum_cleaner():
+    goal = 'C'  # Target is to clean
+    initial_state = ('Dirty', 'Dirty')  # ('Left side', 'Right side') dirty or clean
+    visited = set()
+    queue = deque([(initial_state, [])])
+
+    # Possible actions: ('Move Left', 'Move Right', 'Clean Left', 'Clean Right')
+    actions = ['Move Left', 'Move Right', 'Clean Left', 'Clean Right']
+
+    while queue:
+        state, path = queue.popleft()
+
+        if state == (goal, goal):  # All cleaned
+            return path
+
+        if state not in visited:
+            visited.add(state)
+            left, right = state
+            for action in actions:
+                if action == 'Move Left':
+                    next_state = ('Moving Left', right)
+                elif action == 'Move Right':
+                    next_state = (left, 'Moving Right')
+                elif action == 'Clean Left' and left == 'Dirty':
+                    next_state = ('Cleaned', right)
+                elif action == 'Clean Right' and right == 'Dirty':
+                    next_state = (left, 'Cleaned')
+                else:
+                    continue
+                
+                queue.append((next_state, path + [action]))
+    
+    return None
+
+# Example usage:
+solution = vacuum_cleaner()
+if solution:
+    for action in solution:
+        print(action)
+else:
+    print("No solution found")
