@@ -1,0 +1,57 @@
+def alpha_beta(board, depth, alpha, beta, is_maximizing):
+    winner = check_winner(board, "X")
+    if winner:
+        return 10 - depth
+    winner = check_winner(board, "O")
+    if winner:
+        return depth - 10
+    if all(board[row][col] != " " for row in range(3) for col in range(3)):
+        return 0
+
+    if is_maximizing:
+        max_eval = float('-inf')
+        for row in range(3):
+            for col in range(3):
+                if board[row][col] == " ":
+                    board[row][col] = "X"
+                    eval = alpha_beta(board, depth + 1, alpha, beta, False)
+                    board[row][col] = " "
+                    max_eval = max(max_eval, eval)
+                    alpha = max(alpha, eval)
+                    if beta <= alpha:
+                        break
+        return max_eval
+    else:
+        min_eval = float('inf')
+        for row in range(3):
+            for col in range(3):
+                if board[row][col] == " ":
+                    board[row][col] = "O"
+                    eval = alpha_beta(board, depth + 1, alpha, beta, True)
+                    board[row][col] = " "
+                    min_eval = min(min_eval, eval)
+                    beta = min(beta, eval)
+                    if beta <= alpha:
+                        break
+        return min_eval
+
+def best_move_alpha_beta(board):
+    best_val = float('-inf')
+    move = (-1, -1)
+    alpha = float('-inf')
+    beta = float('inf')
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == " ":
+                board[row][col] = "X"
+                move_val = alpha_beta(board, 0, alpha, beta, False)
+                board[row][col] = " "
+                if move_val > best_val:
+                    best_val = move_val
+                    move = (row, col)
+    return move
+
+# Example usage:
+board = [["X", "O", "X"], ["O", "X", " "], ["O", " ", " "]]
+move = best_move_alpha_beta(board)
+print(f"The best move is at row {move[0]}, column {move[1]}")
