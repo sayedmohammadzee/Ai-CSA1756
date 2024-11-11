@@ -1,0 +1,12 @@
+has_symptom(cough).
+has_symptom(fever).
+
+% Diagnosis rule for cold
+diagnose(cold) :- 
+    has_symptom(cough),
+    has_symptom(fever),
+    format('The patient has cold.~n').
+
+% Query to diagnose the condition based on symptoms
+diagnose_condition :-
+    diagnose(cold).
