@@ -1,0 +1,8 @@
+% Monkey can reach the banana by using the box
+can_reach_banana(Monkey) :-
+    has_box(Box),
+    Box = box(Height),
+    Height > 2, % Box height enough to reach the banana
+    format('Monkey can use the box to reach the banana.~n').
+
+has_box(box(3)).  % Example box with height 3
