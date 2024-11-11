@@ -1,0 +1,47 @@
+import heapq
+
+def a_star(graph, start, goal, h):
+    # h is the heuristic function
+    open_list = []
+    heapq.heappush(open_list, (0, start))  # (f, node)
+    g_costs = {start: 0}
+    parent = {start: None}
+
+    while open_list:
+        current_f, current_node = heapq.heappop(open_list)
+
+        if current_node == goal:
+            path = []
+            while current_node:
+                path.append(current_node)
+                current_node = parent[current_node]
+            return path[::-1]
+
+        for neighbor, cost in graph[current_node]:
+            g_cost = g_costs[current_node] + cost
+            f_cost = g_cost + h[neighbor]
+
+            if neighbor not in g_costs or g_cost < g_costs[neighbor]:
+                g_costs[neighbor] = g_cost
+                parent[neighbor] = current_node
+                heapq.heappush(open_list, (f_cost, neighbor))
+
+    return None
+
+# Example usage:
+graph = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('A', 1), ('C', 2), ('D', 5)],
+    'C': [('A', 4), ('B', 2), ('D', 1)],
+    'D': [('B', 5), ('C', 1)]
+}
+
+# Simple heuristic: straight line distance to goal
+heuristic = {'A': 3, 'B': 2, 'C': 1, 'D': 0}
+
+start, goal = 'A', 'D'
+solution = a_star(graph, start, goal, heuristic)
+if solution:
+    print("Path:", solution)
+else:
+    print("No path found")
