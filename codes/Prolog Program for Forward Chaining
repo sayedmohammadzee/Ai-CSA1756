@@ -1,0 +1,6 @@
+% Facts
+car(blue).
+car(electric).
+
+% Rules for forward chaining
+is_electric_car(X) :- car(X), X = electric, format('~w is an electric car.~n', [X]).
