@@ -1,0 +1,7 @@
+count_vowels([], 0).
+count_vowels([H|T], Count) :-
+    member(H, [a, e, i, o, u]),
+    count_vowels(T, TailCount),
+    Count is TailCount + 1.
+count_vowels([_|T], Count) :-
+    count_vowels(T, Count).
