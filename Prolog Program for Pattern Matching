@@ -1,0 +1,5 @@
+match_pattern(hello).
+match_pattern(world).
+
+% Query for matching a pattern
+find_pattern :- match_pattern(hello).
