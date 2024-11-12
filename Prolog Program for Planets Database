@@ -1,0 +1,7 @@
+planet(mars, distance(227.9)).
+planet(earth, distance(149.6)).
+planet(jupiter, distance(778.3)).
+
+% Query to find the distance of a planet from the Sun
+planet_distance(Planet, Distance) :-
+    planet(Planet, distance(Distance)).
