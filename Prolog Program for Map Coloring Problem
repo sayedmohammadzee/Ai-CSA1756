@@ -1,0 +1,16 @@
+color(red).
+color(green).
+color(blue).
+
+neighbor(a, b).
+neighbor(b, c).
+neighbor(c, d).
+
+color_map :-
+    color(X),
+    color(Y),
+    X \= Y,
+    neighbor(a, b),
+    neighbor(b, c),
+    neighbor(c, d),
+    format('Color of a: ~w, b: ~w, c: ~w, d: ~w~n', [X, Y, X, Y]).
