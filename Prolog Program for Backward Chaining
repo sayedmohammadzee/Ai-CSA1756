@@ -1,0 +1,5 @@
+% Facts
+car(electric).
+
+% Backward chaining rule
+is_electric_car(X) :- car(X), X = electric, format('~w is an electric car.~n', [X]).
