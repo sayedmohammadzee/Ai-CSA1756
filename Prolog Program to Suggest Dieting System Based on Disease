@@ -1,0 +1,8 @@
+diet_plan(diabetes, low_sugar).
+diet_plan(heart_disease, low_fat).
+diet_plan(high_blood_pressure, low_salt).
+
+% Query to suggest a diet plan based on disease
+suggest_diet(Disease, Diet) :-
+    diet_plan(Disease, Diet),
+    format('Suggested diet for ~w: ~w~n', [Disease, Diet]).
