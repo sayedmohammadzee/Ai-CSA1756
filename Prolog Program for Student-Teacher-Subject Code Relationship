@@ -1,0 +1,6 @@
+student_teacher_subject(student('Alice'), teacher('Mr. Smith'), subject('Mathematics')).
+student_teacher_subject(student('Bob'), teacher('Ms. Johnson'), subject('Science')).
+
+% Query to find subject taught by a teacher to a student
+find_subject(Student, Teacher, Subject) :-
+    student_teacher_subject(student(Student), teacher(Teacher), subject(Subject)).
