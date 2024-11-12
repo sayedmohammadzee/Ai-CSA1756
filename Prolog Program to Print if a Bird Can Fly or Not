@@ -1,0 +1,12 @@
+can_fly(bird).
+can_fly(airplane).
+
+cannot_fly(cat).
+cannot_fly(dog).
+
+% Query to check if a particular animal can fly
+check_if_can_fly(Animal) :-
+    can_fly(Animal),
+    format('~w can fly.~n', [Animal]);
+    cannot_fly(Animal),
+    format('~w cannot fly.~n', [Animal]).
